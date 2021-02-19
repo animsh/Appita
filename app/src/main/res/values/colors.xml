@@ -7,4 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="themePrimary">#FF9A00</color>
+
+    <!--lightMode colors-->
+    <color name="backgroundColorLight">#FFFFFF</color>
+    <color name="backgroundLayoutColorLight">#FFFFFF</color>
+    <color name="textColorLight">#121212</color>
+    <color name="subTextColorLight">#757575</color>
+
+    <!--darkMode colors-->
+    <color name="backgroundColorDark">#000000</color>
+    <color name="backgroundLayoutColorDark">#121212</color>
+    <color name="textColorDark">#FFFFFF</color>
+    <color name="subTextColorDark">#5FFFFFFF</color>
+
 </resources>

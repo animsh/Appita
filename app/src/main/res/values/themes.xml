@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Appita" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/themePrimary</item>
+        <item name="colorPrimaryVariant">@color/themePrimary</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="background_color">@color/backgroundColorLight</item>
+        <item name="layout_color">@color/backgroundLayoutColorLight</item>
+        <item name="text_color">@color/textColorLight</item>
+        <item name="sub_text_color">@color/subTextColorLight</item>
+        <item name="bottom_navigation_color">@color/backgroundLayoutColorLight</item>
     </style>
 </resources>

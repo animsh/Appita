@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Appita</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_fragment">Recipe Fragment</string>
+    <string name="favorite_recipe_fragment">Favorite Recipe Fragment</string>
+    <string name="food_joke_fragment">Food Joke Fragment</string>
 </resources>
