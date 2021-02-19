@@ -110,4 +110,8 @@ dependencies {
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
+
+    // Rounded ImageView
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
 }

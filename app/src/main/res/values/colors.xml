@@ -9,6 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="themePrimary">#FF9A00</color>
+    <color name="red">#FF4646</color>
+    <color name="yellow">#FF9A00</color>
+    <color name="green">#00C980</color>
 
     <!--lightMode colors-->
     <color name="backgroundColorLight">#FFFFFF</color>
