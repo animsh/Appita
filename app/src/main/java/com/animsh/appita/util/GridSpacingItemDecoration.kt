@@ -1,4 +1,4 @@
-package com.animsh.appita
+package com.animsh.appita.util
 
 import android.graphics.Rect
 import android.view.View

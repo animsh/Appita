@@ -1,4 +1,4 @@
-package com.animsh.appita
+package com.animsh.appita.util
 
 /**
  * Created by animsh on 2/20/2021.

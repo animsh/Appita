@@ -1,4 +1,4 @@
-package com.animsh.appita
+package com.animsh.appita.data.network
 
 import com.animsh.appita.models.FoodRecipe
 import retrofit2.Response

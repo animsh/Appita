@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.animsh.appita.GridSpacingItemDecoration
 import com.animsh.appita.R
+import com.animsh.appita.util.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 
 class RecipesFragment : Fragment() {
