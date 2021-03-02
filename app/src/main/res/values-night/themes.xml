@@ -19,5 +19,6 @@
         <item name="text_color">@color/textColorDark</item>
         <item name="sub_text_color">@color/subTextColorDark</item>
         <item name="bottom_navigation_color">@color/backgroundLayoutColorDark</item>
+        <item name="fontFamily">@font/kumbh_sans</item>
     </style>
 </resources>

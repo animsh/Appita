@@ -35,7 +35,8 @@ class MainViewModel @ViewModelInject constructor(
                 val response = repository.remote.getRecipes(queries)
                 foodRecipeResponse.value = handleResponse(response)
             } catch (e: Exception) {
-                foodRecipeResponse.value = NetworkResult.Error(message = "Recipes not found!!")
+                foodRecipeResponse.value =
+                    NetworkResult.Error(message = "Recipes not found!! " + e.message)
             }
         } else {
             foodRecipeResponse.value = NetworkResult.Error(message = "No Internet Connection!!")
@@ -53,7 +54,7 @@ class MainViewModel @ViewModelInject constructor(
             }
 
             response.body()!!.results.isNullOrEmpty() -> {
-                return NetworkResult.Error(message = "Recipe not found!!")
+                return NetworkResult.Error(message = "2 Recipe not found!!")
             }
 
             response.isSuccessful -> {
@@ -65,7 +66,7 @@ class MainViewModel @ViewModelInject constructor(
         }
     }
 
-    fun hasNetworkConnection(): Boolean {
+    private fun hasNetworkConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
