@@ -25,7 +25,7 @@ class ItemBindingAdapter {
         @JvmStatic
         fun loadImageFromURL(imageView: ImageView, imageUrl: String) {
             try {
-                imageView.alpha = 0f
+//                imageView.alpha = 0f
                 Glide.with(imageView.context).load(imageUrl).placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder).diskCacheStrategy(DiskCacheStrategy.ALL)
                     .listener(object : RequestListener<Drawable?> {
@@ -35,7 +35,7 @@ class ItemBindingAdapter {
                             target: Target<Drawable?>,
                             isFirstResource: Boolean
                         ): Boolean {
-                            imageView.animate().setDuration(300).alpha(1f).start()
+//                            imageView.animate().setDuration(300).alpha(1f).start()
                             return false
                         }
 
@@ -46,7 +46,7 @@ class ItemBindingAdapter {
                             dataSource: DataSource,
                             isFirstResource: Boolean
                         ): Boolean {
-                            imageView.animate().setDuration(300).alpha(1f).start()
+//                            imageView.animate().setDuration(300).alpha(1f).start()
                             return false
                         }
                     }).into(imageView)

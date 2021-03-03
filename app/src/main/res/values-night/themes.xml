@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Appita" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Appita" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/themePrimary</item>
         <item name="colorPrimaryVariant">@color/backgroundLayoutColorDark</item>
@@ -20,5 +20,6 @@
         <item name="sub_text_color">@color/subTextColorDark</item>
         <item name="bottom_navigation_color">@color/backgroundLayoutColorDark</item>
         <item name="fontFamily">@font/kumbh_sans</item>
+
     </style>
 </resources>

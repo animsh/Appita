@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/recipesFragment"
-        android:icon="@drawable/ic_recipes"
+        android:icon="@drawable/ic_home"
         android:title="@string/recipe_fragment" />
 
     <item
