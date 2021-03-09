@@ -5,14 +5,24 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.animsh.appita.MainViewModel
 import com.animsh.appita.R
 import com.animsh.appita.adapters.RecipesAdapter
 import com.animsh.appita.databinding.FragmentRecipesBinding
 import com.animsh.appita.util.Constants.Companion.API_KEY
+import com.animsh.appita.util.Constants.Companion.QUERY_ADD_RECIPE_INFORMATION
+import com.animsh.appita.util.Constants.Companion.QUERY_API_KEY
+import com.animsh.appita.util.Constants.Companion.QUERY_DIET
+import com.animsh.appita.util.Constants.Companion.QUERY_FILL_INGREDIENTS
+import com.animsh.appita.util.Constants.Companion.QUERY_NUMBER
+import com.animsh.appita.util.Constants.Companion.QUERY_TYPE
 import com.animsh.appita.util.NetworkResult
+import com.animsh.appita.util.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_recipes.*
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
@@ -32,7 +42,31 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
             recipeRecyclerview.adapter = mAdapter
             recipeRecyclerview.showShimmer()
-            requestData()
+//            requestData()
+            readDatabase()
+        }
+    }
+
+    private fun readDatabase() {
+        lifecycleScope.launch {
+            mainViewModel.readRecipe.observeOnce(viewLifecycleOwner, {
+                if (it.isNotEmpty()) {
+                    mAdapter.setData(it[0].foodRecipe)
+                    recipeRecyclerview.hideShimmer()
+                } else {
+                    requestData()
+                }
+            })
+        }
+    }
+
+    private fun loadDataFromCache() {
+        lifecycleScope.launch {
+            mainViewModel.readRecipe.observe(viewLifecycleOwner, {
+                if (it.isNotEmpty()) {
+                    mAdapter.setData(it[0].foodRecipe)
+                }
+            })
         }
     }
 
@@ -46,6 +80,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 }
                 is NetworkResult.Error -> {
                     binding.recipeRecyclerview.hideShimmer()
+                    loadDataFromCache()
                     Toast.makeText(context, response.message.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResult.Loading -> {
@@ -58,12 +93,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
-        queries["number"] = "50"
-        queries["apiKey"] = API_KEY
-        queries["type"] = "snack"
-        queries["diet"] = "vegan"
-        queries["addRecipeInformation"] = "true"
-        queries["fillIngredients"] = "true"
+        queries[QUERY_NUMBER] = "50"
+        queries[QUERY_API_KEY] = API_KEY
+        queries[QUERY_TYPE] = "snack"
+        queries[QUERY_DIET] = "vegan"
+        queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
+        queries[QUERY_FILL_INGREDIENTS] = "true"
 
         return queries
     }
