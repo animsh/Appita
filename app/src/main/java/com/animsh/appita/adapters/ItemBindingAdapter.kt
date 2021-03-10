@@ -56,9 +56,11 @@ class ItemBindingAdapter {
 
         @BindingAdapter("android:setHTMLText")
         @JvmStatic
-        fun setHTMLText(textView: TextView, overView: String) {
-            val htmlAsSpanned = Html.fromHtml(overView)
-            textView.text = htmlAsSpanned
+        fun setHTMLText(textView: TextView, overView: String?) {
+            if (!overView.isNullOrEmpty()) {
+                val htmlAsSpanned = Html.fromHtml(overView)
+                textView.text = htmlAsSpanned
+            }
         }
 
         @BindingAdapter("android:setLikes")

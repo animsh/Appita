@@ -1,4 +1,4 @@
-package com.animsh.appita
+package com.animsh.appita.viewmodels
 
 import android.app.Application
 import android.content.Context

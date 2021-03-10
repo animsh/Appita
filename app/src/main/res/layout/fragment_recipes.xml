@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.animsh.appita.viewmodels.MainViewModel" />
     </data>
 
     <FrameLayout
@@ -29,6 +32,8 @@
             android:layout_gravity="center"
             android:alpha="0.5"
             android:gravity="center"
+            android:readApiResponse="@{viewModel.foodRecipeResponse}"
+            android:readDatabase="@{viewModel.readRecipe}"
             android:text="@string/no_internet"
             android:textAlignment="center"
             android:textSize="20sp"
