@@ -10,20 +10,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.animsh.appita.R
 import com.animsh.appita.adapters.RecipesAdapter
 import com.animsh.appita.databinding.FragmentRecipesBinding
-import com.animsh.appita.util.Constants.Companion.API_KEY
-import com.animsh.appita.util.Constants.Companion.QUERY_ADD_RECIPE_INFORMATION
-import com.animsh.appita.util.Constants.Companion.QUERY_API_KEY
-import com.animsh.appita.util.Constants.Companion.QUERY_DIET
-import com.animsh.appita.util.Constants.Companion.QUERY_FILL_INGREDIENTS
-import com.animsh.appita.util.Constants.Companion.QUERY_INSTRUCTION_REQUIRED
-import com.animsh.appita.util.Constants.Companion.QUERY_NUMBER
-import com.animsh.appita.util.Constants.Companion.QUERY_SORT_DIRECTION
-import com.animsh.appita.util.Constants.Companion.QUERY_TYPE
 import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.util.observeOnce
 import com.animsh.appita.viewmodels.MainViewModel
+import com.animsh.appita.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -32,6 +23,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var binding: FragmentRecipesBinding
     private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var recipesViewModel: RecipesViewModel
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +32,10 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         binding.lifecycleOwner = this
         binding.apply {
             mainViewModel =
-                ViewModelProvider(this@RecipesFragment).get(MainViewModel::class.java)
+                ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+            recipesViewModel =
+                ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
             binding.viewModel = mainViewModel
             recipeRecyclerview.layoutManager =
                 StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -74,7 +70,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     }
 
     private fun requestData() {
-        mainViewModel.getRecipes(applyQueries())
+        mainViewModel.getRecipes(recipesViewModel.applyQueries())
         mainViewModel.foodRecipeResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {
@@ -91,20 +87,5 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 }
             }
         })
-    }
-
-    private fun applyQueries(): HashMap<String, String> {
-        val queries: HashMap<String, String> = HashMap()
-
-        queries[QUERY_NUMBER] = "50"
-        queries[QUERY_API_KEY] = API_KEY
-        queries[QUERY_TYPE] = "snack"
-        queries[QUERY_DIET] = "vegan"
-        queries[QUERY_INSTRUCTION_REQUIRED] = "true"
-        queries[QUERY_SORT_DIRECTION] = "asc"
-        queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
-        queries[QUERY_FILL_INGREDIENTS] = "true"
-
-        return queries
     }
 }
