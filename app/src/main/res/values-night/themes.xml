@@ -20,6 +20,14 @@
         <item name="sub_text_color">@color/subTextColorDark</item>
         <item name="bottom_navigation_color">@color/backgroundLayoutColorDark</item>
         <item name="fontFamily">@font/kumbh_sans</item>
+        <item name="bottom_sheet_background">#2A2A2A</item>
 
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipIconSize">18dp</item>
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="checkedIconTint">@color/chip_text_color</item>
     </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.animsh.appita.adapters
+package com.animsh.appita.bindingadapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,11 +35,11 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecipesAdapter.RecipeViewHolder {
+    ): RecipeViewHolder {
         return RecipeViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: RecipesAdapter.RecipeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val currentRecipe = recipes[position]
         holder.bind(currentRecipe)
     }

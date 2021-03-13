@@ -8,8 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.animsh.appita.R
-import com.animsh.appita.adapters.RecipesAdapter
+import com.animsh.appita.bindingadapters.RecipesAdapter
 import com.animsh.appita.databinding.FragmentRecipesBinding
+import com.animsh.appita.ui.fragments.recipes.bottomsheet.RecipeBottomSheetFragment
 import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.util.observeOnce
 import com.animsh.appita.viewmodels.MainViewModel
@@ -35,6 +36,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
             recipesViewModel =
                 ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
+            floatingActionButton.setOnClickListener {
+                val openBottomSheet: RecipeBottomSheetFragment =
+                    RecipeBottomSheetFragment().newInstance()
+                openBottomSheet.show(childFragmentManager, RecipeBottomSheetFragment.TAG)
+            }
 
             binding.viewModel = mainViewModel
             recipeRecyclerview.layoutManager =

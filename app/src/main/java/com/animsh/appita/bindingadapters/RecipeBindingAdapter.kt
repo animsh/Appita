@@ -1,4 +1,4 @@
-package com.animsh.appita.adapters
+package com.animsh.appita.bindingadapters
 
 import android.view.View
 import android.widget.TextView

@@ -37,4 +37,6 @@ data class Result(
     val vegetarian: Boolean,
     @SerializedName("veryHealthy")
     val veryHealthy: Boolean,
+    @SerializedName("spoonacularScore")
+    val spoonacularScore: Int,
 ) : Parcelable

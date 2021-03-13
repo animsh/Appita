@@ -21,6 +21,14 @@
         <item name="bottom_navigation_color">@color/backgroundLayoutColorLight</item>
         <item name="fontFamily">@font/kumbh_sans</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="bottom_sheet_background">@color/lightGray</item>
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipIconSize">18dp</item>
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="checkedIconTint">@color/chip_text_color</item>
     </style>
 
 </resources>

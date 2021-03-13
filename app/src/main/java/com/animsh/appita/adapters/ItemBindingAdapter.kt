@@ -3,8 +3,8 @@ package com.animsh.appita.adapters
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.animsh.appita.R
 import com.bumptech.glide.Glide
@@ -54,6 +54,12 @@ class ItemBindingAdapter {
             }
         }
 
+        @BindingAdapter("android:loadStars")
+        @JvmStatic
+        fun loadStars(ratingBar: RatingBar, score: Int) {
+            ratingBar.rating = ((score * 5) / 100).toFloat()
+        }
+
         @BindingAdapter("android:setHTMLText")
         @JvmStatic
         fun setHTMLText(textView: TextView, overView: String?) {
@@ -66,33 +72,16 @@ class ItemBindingAdapter {
         @BindingAdapter("android:setLikes")
         @JvmStatic
         fun setLikes(textView: TextView, likes: Int) {
-            textView.text = likes.toString()
+            val likesTxt = "$likes likes"
+            textView.text = likesTxt
         }
 
         @BindingAdapter("android:setMinutes")
         @JvmStatic
         fun setMinutes(textView: TextView, minutes: Int) {
-            textView.text = minutes.toString()
+            val minutesTxt = "$minutes min"
+            textView.text = minutesTxt
         }
 
-        @BindingAdapter("android:setVegan")
-        @JvmStatic
-        fun setVegan(textView: TextView, vegan: Boolean) {
-            if (vegan) {
-                textView.setTextColor(
-                    ContextCompat.getColor(
-                        textView.context,
-                        R.color.green
-                    )
-                )
-                if (textView.compoundDrawables[1] != null)
-                    textView.compoundDrawables[1].setTint(
-                        ContextCompat.getColor(
-                            textView.context,
-                            R.color.green
-                        )
-                    )
-            }
-        }
     }
 }

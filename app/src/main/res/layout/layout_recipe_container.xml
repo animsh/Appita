@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:background="#00000000">
 
         <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/background_recipe_container"
-            android:elevation="4dp"
+            android:elevation="2dp"
             android:orientation="vertical"
             android:paddingTop="65dp"
             android:paddingBottom="10dp"
@@ -44,7 +44,6 @@
                 android:ellipsize="end"
                 android:letterSpacing="0.05"
                 android:lineSpacingMultiplier="1.1"
-                android:maxLines="2"
                 android:scrollHorizontally="true"
                 android:text="@{Result.title}"
                 android:textAlignment="center"
@@ -52,27 +51,23 @@
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
-            <TextView
-                android:id="@+id/recipesOverview"
-                android:layout_width="match_parent"
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="14dp"
                 android:layout_marginEnd="14dp"
                 android:layout_marginBottom="8dp"
-                android:ellipsize="end"
-                android:letterSpacing="0.05"
-                android:lineSpacingMultiplier="1.1"
-                android:maxLines="10"
-                android:scrollHorizontally="true"
-                android:setHTMLText="@{Result.summary}"
-                android:textColor="?attr/text_color"
-                android:textSize="13sp" />
+                android:isIndicator="true"
+                android:loadStars="@{Result.spoonacularScore}"
+                android:numStars="5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="4dp"
                 android:orientation="horizontal">
@@ -82,32 +77,26 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:letterSpacing="0.05"
+                    android:lineSpacingMultiplier="1.1"
                     android:setLikes="@{Result.aggregateLikes}"
                     android:textAlignment="center"
                     android:textColor="@color/red"
                     app:drawableTint="@color/red"
-                    app:drawableTopCompat="@drawable/ic_favorite" />
+                    app:drawableTopCompat="@drawable/ic_round_favorite" />
 
                 <TextView
                     android:id="@+id/recipeTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingMultiplier="1.6"
                     android:setMinutes="@{Result.readyInMinutes}"
                     android:textAlignment="center"
                     android:textColor="@color/yellow"
                     app:drawableTint="@color/yellow"
                     app:drawableTopCompat="@drawable/ic_time" />
-
-                <TextView
-                    android:id="@+id/recipeVegan"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:setVegan="@{Result.vegan}"
-                    android:text="Vegan"
-                    android:textAlignment="center"
-                    app:drawableTopCompat="@drawable/ic_eco" />
 
             </LinearLayout>
         </LinearLayout>
