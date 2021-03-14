@@ -9,10 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
 
-    companion object{
+    companion object {
         const val TAG = "RecipeBottomDialog"
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
