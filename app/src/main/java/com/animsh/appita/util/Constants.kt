@@ -6,7 +6,7 @@ package com.animsh.appita.util
 class Constants {
     companion object {
         const val BASE_URL = "https://api.spoonacular.com"
-        const val API_KEY = "Your Api Key"
+        const val API_KEY = "[Your Api Key]"
 
         // API QUERY
         const val QUERY_NUMBER = "number"
