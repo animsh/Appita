@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -15,6 +16,7 @@ import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.util.observeOnce
 import com.animsh.appita.viewmodels.MainViewModel
 import com.animsh.appita.viewmodels.RecipesViewModel
+import com.animsh.appita.viewmodels.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,7 +27,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
-
+    private val sharedViewModel: SharedViewModel by viewModels()
+    private var firstTime: Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,14 +52,22 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
             recipeRecyclerview.adapter = mAdapter
             recipeRecyclerview.showShimmer()
-            readDatabase()
+
+            if (firstTime) {
+                readDatabase(true)
+                firstTime = false
+            }
+
+            sharedViewModel.backFrom.observe(viewLifecycleOwner, {
+                readDatabase(it)
+            })
         }
     }
 
-    private fun readDatabase() {
+    private fun readDatabase(backFromBottomSheet: Boolean) {
         lifecycleScope.launch {
             mainViewModel.readRecipe.observeOnce(viewLifecycleOwner, {
-                if (it.isNotEmpty()) {
+                if (it.isNotEmpty() && !backFromBottomSheet) {
                     mAdapter.setData(it[0].foodRecipe)
                     binding.recipeRecyclerview.hideShimmer()
                 } else {
@@ -77,7 +88,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     }
 
     private fun requestData() {
-        mainViewModel.getRecipes(recipesViewModel.applyQueries())
+        mainViewModel.getRecipes(recipesViewModel.applyQueries(requireContext()))
         mainViewModel.foodRecipeResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is NetworkResult.Success -> {

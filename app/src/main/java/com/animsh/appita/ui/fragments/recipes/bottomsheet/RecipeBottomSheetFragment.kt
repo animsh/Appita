@@ -1,16 +1,19 @@
 package com.animsh.appita.ui.fragments.recipes.bottomsheet
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.animsh.appita.databinding.RecipeBottomSheetBinding
 import com.animsh.appita.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.animsh.appita.util.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.animsh.appita.viewmodels.RecipesViewModel
+import com.animsh.appita.viewmodels.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -22,14 +25,19 @@ class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
         const val TAG = "RecipeBottomDialog"
     }
 
-    private lateinit var recipesViewModel: RecipesViewModel
+    private val sharedPrefFile = "appitaPreference"
+
     private var _binding: RecipeBottomSheetBinding? = null
     private val binding get() = _binding!!
 
-    private var mealTypeChip: String = DEFAULT_MEAL_TYPE
-    private var mealTypeChipId: Int = 0
-    private var dietTypeChip: String = DEFAULT_DIET_TYPE
-    private var dietTypeChipId: Int = 0
+    private lateinit var recipesViewModel: RecipesViewModel
+
+    private var mealTypeChip = DEFAULT_MEAL_TYPE
+    private var mealTypeChipId = 0
+    private var dietTypeChip = DEFAULT_DIET_TYPE
+    private var dietTypeChipId = 0
+    private val sharedViewModel: SharedViewModel by viewModels({ requireParentFragment() })
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +58,16 @@ class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.apply {
 
-            recipesViewModel.readMealAndDietType.asLiveData().observe(viewLifecycleOwner, {
-                mealTypeChip = it.selectedMealType
-                dietTypeChip = it.selectedDietType
-                updateChip(it.selectedMealTypeId, mealTypeChipGroup)
-                updateChip(it.selectedDietTypeId, dietTypeChipGroup)
+            val sharedPreference =
+                binding.root.context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+            var editor = sharedPreference.edit()
+
+
+            recipesViewModel.readMealAndDietType.asLiveData().observe(viewLifecycleOwner, { value ->
+                mealTypeChip = value.selectedMealType
+                dietTypeChip = value.selectedDietType
+                updateChip(value.selectedMealTypeId, mealTypeChipGroup)
+                updateChip(value.selectedDietTypeId, dietTypeChipGroup)
             })
 
             mealTypeChipGroup.setOnCheckedChangeListener { group, selectedChipId ->
@@ -78,17 +91,21 @@ class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
                     dietTypeChip,
                     dietTypeChipId
                 )
+                editor.putString("meal", mealTypeChip)
+                editor.putString("diet", dietTypeChip)
+                editor.apply()
+                sharedViewModel.setBackFrom(true)
                 dismiss()
             }
         }
     }
 
-    private fun updateChip(selectedId: Int, chipGroup: ChipGroup) {
-        if (selectedId != 0) {
+    private fun updateChip(chipId: Int, chipGroup: ChipGroup) {
+        if (chipId != 0) {
             try {
-                chipGroup.findViewById<Chip>(selectedId).isChecked = true
+                chipGroup.findViewById<Chip>(chipId).isChecked = true
             } catch (e: Exception) {
-                Log.d(TAG, "updateChip: " + e.message.toString())
+                Log.d("RecipesBottomSheet", e.message.toString())
             }
         }
     }

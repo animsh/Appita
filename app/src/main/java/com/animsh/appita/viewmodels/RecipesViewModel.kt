@@ -1,7 +1,7 @@
 package com.animsh.appita.viewmodels
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.animsh.appita.data.DataStoreRepository
@@ -18,35 +18,43 @@ import com.animsh.appita.util.Constants.Companion.QUERY_NUMBER
 import com.animsh.appita.util.Constants.Companion.QUERY_SORT
 import com.animsh.appita.util.Constants.Companion.QUERY_SORT_DIRECTION
 import com.animsh.appita.util.Constants.Companion.QUERY_TYPE
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipesViewModel @ViewModelInject constructor(
+@HiltViewModel
+class RecipesViewModel @Inject constructor(
     application: Application,
     private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(application) {
 
-    var mealType = DEFAULT_MEAL_TYPE
-    var dietType = DEFAULT_DIET_TYPE
+    private var mealType = DEFAULT_MEAL_TYPE
+    private var dietType = DEFAULT_DIET_TYPE
+
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
 
-    fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) {
-        viewModelScope.launch {
+    fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) =
+        viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.saveMealAndDietType(mealType, mealTypeId, dietType, dietTypeId)
         }
-    }
 
-    fun applyQueries(): HashMap<String, String> {
+    fun applyQueries(context: Context): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
         viewModelScope.launch {
-            readMealAndDietType.collect {
-                mealType = it.selectedMealType
-                dietType = it.selectedDietType
+            readMealAndDietType.collect { values ->
+                mealType = values.selectedMealType
+                dietType = values.selectedDietType
             }
         }
 
+        val sharedPreference =
+            context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        mealType = sharedPreference.getString("meal", DEFAULT_MEAL_TYPE).toString()
+        dietType = sharedPreference.getString("diet", DEFAULT_DIET_TYPE).toString()
         queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
         queries[QUERY_API_KEY] = API_KEY
         queries[QUERY_TYPE] = mealType
