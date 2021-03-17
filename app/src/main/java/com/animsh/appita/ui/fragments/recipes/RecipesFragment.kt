@@ -1,6 +1,7 @@
 package com.animsh.appita.ui.fragments.recipes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,12 +13,14 @@ import com.animsh.appita.R
 import com.animsh.appita.bindingadapters.RecipesAdapter
 import com.animsh.appita.databinding.FragmentRecipesBinding
 import com.animsh.appita.ui.fragments.recipes.bottomsheet.RecipeBottomSheetFragment
+import com.animsh.appita.util.NetworkListener
 import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.util.observeOnce
 import com.animsh.appita.viewmodels.MainViewModel
 import com.animsh.appita.viewmodels.RecipesViewModel
 import com.animsh.appita.viewmodels.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,6 +32,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var recipesViewModel: RecipesViewModel
     private val sharedViewModel: SharedViewModel by viewModels()
     private var firstTime: Boolean = true
+    private lateinit var networkListener: NetworkListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,9 +45,14 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
 
             floatingActionButton.setOnClickListener {
-                val openBottomSheet: RecipeBottomSheetFragment =
-                    RecipeBottomSheetFragment().newInstance()
-                openBottomSheet.show(childFragmentManager, RecipeBottomSheetFragment.TAG)
+                if (recipesViewModel.networkStatus) {
+                    val openBottomSheet: RecipeBottomSheetFragment =
+                        RecipeBottomSheetFragment().newInstance()
+                    openBottomSheet.show(childFragmentManager, RecipeBottomSheetFragment.TAG)
+                } else {
+                    Toast.makeText(requireContext(), "No Internet Connection!!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
 
             binding.viewModel = mainViewModel
@@ -52,6 +61,16 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
             recipeRecyclerview.adapter = mAdapter
             recipeRecyclerview.showShimmer()
+
+            lifecycleScope.launch {
+                networkListener = NetworkListener()
+                networkListener.checkNetworkAvailability(requireContext())
+                    .collect { status ->
+                        Log.d("TAGTAGTAG", "onViewCreated: $status")
+                        recipesViewModel.networkStatus = status
+                        recipesViewModel.showNetworkStatus()
+                    }
+            }
 
             if (firstTime) {
                 readDatabase(true)

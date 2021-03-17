@@ -2,6 +2,7 @@ package com.animsh.appita.viewmodels
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.animsh.appita.data.DataStoreRepository
@@ -33,6 +34,7 @@ class RecipesViewModel @Inject constructor(
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE
 
+    var networkStatus = false
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
 
@@ -66,6 +68,15 @@ class RecipesViewModel @Inject constructor(
         queries[QUERY_FILL_INGREDIENTS] = "true"
 
         return queries
+    }
+
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection!!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(getApplication(), "Internet Connection Is Back!!", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
 }
