@@ -14,4 +14,11 @@ class SharedViewModel : ViewModel() {
     fun setBackFrom(item: Boolean) {
         mutableSelectedItem.value = item
     }
+
+    private val mutableOnlineItem = MutableLiveData<Boolean>()
+    val onlineStatus: LiveData<Boolean> get() = mutableOnlineItem
+
+    fun setOnlineStatus(item: Boolean) {
+        mutableOnlineItem.value = item
+    }
 }

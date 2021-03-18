@@ -62,6 +62,10 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             recipeRecyclerview.adapter = mAdapter
             recipeRecyclerview.showShimmer()
 
+            recipesViewModel.readBackOnline.observe(viewLifecycleOwner, {
+                recipesViewModel.backOnline = it
+            })
+
             lifecycleScope.launch {
                 networkListener = NetworkListener()
                 networkListener.checkNetworkAvailability(requireContext())
@@ -69,6 +73,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                         Log.d("TAGTAGTAG", "onViewCreated: $status")
                         recipesViewModel.networkStatus = status
                         recipesViewModel.showNetworkStatus()
+                        sharedViewModel.setOnlineStatus(status)
                     }
             }
 
@@ -77,8 +82,10 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 firstTime = false
             }
 
-            sharedViewModel.backFrom.observe(viewLifecycleOwner, {
-                readDatabase(it)
+            sharedViewModel.onlineStatus.observeOnce(viewLifecycleOwner, {
+                sharedViewModel.backFrom.observe(viewLifecycleOwner, {
+                    readDatabase(it)
+                })
             })
         }
     }
