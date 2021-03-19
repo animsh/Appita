@@ -1,5 +1,6 @@
 package com.animsh.appita.ui
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -49,6 +49,11 @@ class MainActivity : AppCompatActivity() {
                     .hide(favRecipesFragment).commit()
                 fragmentManager.beginTransaction().add(R.id.main_container, recipesFragment, "0")
                     .commit()
+            }
+
+            searchBtn.setOnClickListener {
+                val intent = Intent(this@MainActivity, SearchActivity::class.java)
+                startActivity(intent)
             }
         }
     }
