@@ -21,6 +21,7 @@
         <item name="bottom_navigation_color">@color/backgroundLayoutColorDark</item>
         <item name="fontFamily">@font/kumbh_sans</item>
         <item name="bottom_sheet_background">#2A2A2A</item>
+        <item name="search_color">@color/backgroundLayoutColorDark</item>
 
     </style>
 

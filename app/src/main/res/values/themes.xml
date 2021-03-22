@@ -22,6 +22,7 @@
         <item name="fontFamily">@font/kumbh_sans</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="bottom_sheet_background">@color/lightGray</item>
+        <item name="search_color">#EFEFEF</item>
     </style>
 
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
