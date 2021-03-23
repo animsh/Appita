@@ -17,6 +17,7 @@ import com.animsh.appita.util.Constants.Companion.QUERY_DIET
 import com.animsh.appita.util.Constants.Companion.QUERY_FILL_INGREDIENTS
 import com.animsh.appita.util.Constants.Companion.QUERY_INSTRUCTION_REQUIRED
 import com.animsh.appita.util.Constants.Companion.QUERY_NUMBER
+import com.animsh.appita.util.Constants.Companion.QUERY_SEARCH
 import com.animsh.appita.util.Constants.Companion.QUERY_SORT
 import com.animsh.appita.util.Constants.Companion.QUERY_SORT_DIRECTION
 import com.animsh.appita.util.Constants.Companion.QUERY_TYPE
@@ -65,6 +66,23 @@ class RecipesViewModel @Inject constructor(
             context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         mealType = sharedPreference.getString("meal", DEFAULT_MEAL_TYPE).toString()
         dietType = sharedPreference.getString("diet", DEFAULT_DIET_TYPE).toString()
+        queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+        queries[QUERY_API_KEY] = API_KEY
+        queries[QUERY_TYPE] = mealType
+        queries[QUERY_DIET] = dietType
+        queries[QUERY_INSTRUCTION_REQUIRED] = "true"
+        queries[QUERY_SORT] = "popularity"
+        queries[QUERY_SORT_DIRECTION] = "asc"
+        queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
+        queries[QUERY_FILL_INGREDIENTS] = "true"
+
+        return queries
+    }
+
+    fun applySearch(searchQuery: String): HashMap<String, String> {
+        val queries: HashMap<String, String> = HashMap()
+
+        queries[QUERY_SEARCH] = searchQuery
         queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
         queries[QUERY_API_KEY] = API_KEY
         queries[QUERY_TYPE] = mealType
