@@ -56,7 +56,7 @@ class ItemBindingAdapter {
 
         @BindingAdapter("android:loadStars")
         @JvmStatic
-        fun loadStars(ratingBar: RatingBar, score: Int) {
+        fun loadStars(ratingBar: RatingBar, score: Double) {
             ratingBar.rating = ((score * 5) / 100).toFloat()
         }
 

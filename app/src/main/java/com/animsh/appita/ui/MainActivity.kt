@@ -42,7 +42,10 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView.apply {
                 setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
             }
-            if (fragmentManager.findFragmentByTag("1") == null || fragmentManager.findFragmentByTag("0") == null || fragmentManager.findFragmentByTag("1") == null) {
+            if (fragmentManager.findFragmentByTag("1") == null || fragmentManager.findFragmentByTag(
+                    "0"
+                ) == null || fragmentManager.findFragmentByTag("1") == null
+            ) {
                 fragmentManager.beginTransaction().add(R.id.main_container, foodJokeFragment, "2")
                     .hide(foodJokeFragment).commit()
                 fragmentManager.beginTransaction().add(R.id.main_container, favRecipesFragment, "1")
