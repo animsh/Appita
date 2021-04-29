@@ -8,73 +8,75 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class Result(
     @SerializedName("aggregateLikes")
-    val aggregateLikes: Int,
+    val aggregateLikes: Int?,
     @SerializedName("analyzedInstructions")
-    val analyzedInstructions: @RawValue List<AnalyzedInstruction>,
+    val analyzedInstructions: @RawValue List<AnalyzedInstruction?>?,
     @SerializedName("cheap")
-    val cheap: Boolean,
+    val cheap: Boolean?,
     @SerializedName("creditsText")
-    val creditsText: String,
+    val creditsText: String?,
     @SerializedName("cuisines")
-    val cuisines: @RawValue List<Any>,
+    val cuisines: @RawValue List<Any?>?,
     @SerializedName("dairyFree")
-    val dairyFree: Boolean,
+    val dairyFree: Boolean?,
     @SerializedName("diets")
-    val diets: List<String>,
+    val diets: List<String?>?,
     @SerializedName("dishTypes")
-    val dishTypes: List<String>,
+    val dishTypes: List<String?>?,
     @SerializedName("extendedIngredients")
-    val extendedIngredients: @RawValue List<ExtendedIngredient>,
+    val extendedIngredients: @RawValue List<ExtendedIngredient?>?,
     @SerializedName("gaps")
-    val gaps: String,
+    val gaps: String?,
     @SerializedName("glutenFree")
-    val glutenFree: Boolean,
+    val glutenFree: Boolean?,
     @SerializedName("healthScore")
-    val healthScore: Double,
+    val healthScore: Double?,
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("imageType")
-    val imageType: String,
+    val imageType: String?,
     @SerializedName("instructions")
-    val instructions: String,
+    val instructions: String?,
     @SerializedName("license")
-    val license: String,
+    val license: String?,
     @SerializedName("lowFodmap")
-    val lowFodmap: Boolean,
+    val lowFodmap: Boolean?,
     @SerializedName("occasions")
-    val occasions: List<String>,
+    val occasions: List<String>?,
     @SerializedName("originalId")
-    val originalId: String,
+    val originalId: String?,
     @SerializedName("pricePerServing")
-    val pricePerServing: Double,
+    val pricePerServing: Double?,
     @SerializedName("readyInMinutes")
-    val readyInMinutes: Int,
+    val readyInMinutes: Int?,
     @SerializedName("servings")
-    val servings: Int,
+    val servings: Int?,
     @SerializedName("sourceName")
-    val sourceName: String,
+    val sourceName: String?,
     @SerializedName("sourceUrl")
-    val sourceUrl: String,
+    val sourceUrl: String?,
     @SerializedName("spoonacularScore")
-    val spoonacularScore: Double,
+    val spoonacularScore: Double?,
     @SerializedName("spoonacularSourceUrl")
-    val spoonacularSourceUrl: String,
+    val spoonacularSourceUrl: String?,
     @SerializedName("summary")
-    val summary: String,
+    val summary: String?,
     @SerializedName("sustainable")
-    val sustainable: Boolean,
+    val sustainable: Boolean?,
     @SerializedName("title")
-    val title: String,
+    val title: String?,
     @SerializedName("vegan")
-    val vegan: Boolean,
+    val vegan: Boolean?,
     @SerializedName("vegetarian")
-    val vegetarian: Boolean,
+    val vegetarian: Boolean?,
     @SerializedName("veryHealthy")
-    val veryHealthy: Boolean,
+    val veryHealthy: Boolean?,
     @SerializedName("veryPopular")
-    val veryPopular: Boolean,
+    val veryPopular: Boolean?,
     @SerializedName("weightWatcherSmartPoints")
-    val weightWatcherSmartPoints: Int
+    val weightWatcherSmartPoints: Int?,
+    @SerializedName("nutrition")
+    val nutrition: Nutrition?
 ) : Parcelable

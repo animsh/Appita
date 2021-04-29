@@ -19,10 +19,12 @@
         <item name="text_color">@color/textColorLight</item>
         <item name="sub_text_color">@color/subTextColorLight</item>
         <item name="bottom_navigation_color">@color/backgroundLayoutColorLight</item>
-        <item name="fontFamily">@font/kumbh_sans</item>
+        <item name="fontFamily">@font/gilroy</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="bottom_sheet_background">@color/lightGray</item>
         <item name="search_color">#EFEFEF</item>
+        <item name="blur_background_color">#1FFF</item>
+        <item name="blur_icon_tint_color">#FFFFFF</item>
     </style>
 
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">

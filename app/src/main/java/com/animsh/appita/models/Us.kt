@@ -8,9 +8,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Us(
     @SerializedName("amount")
-    val amount: Double,
+    val amount: Double?,
     @SerializedName("unitLong")
-    val unitLong: String,
+    val unitLong: String?,
     @SerializedName("unitShort")
-    val unitShort: String
+    val unitShort: String?
 ) : Parcelable

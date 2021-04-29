@@ -19,9 +19,11 @@
         <item name="text_color">@color/textColorDark</item>
         <item name="sub_text_color">@color/subTextColorDark</item>
         <item name="bottom_navigation_color">@color/backgroundLayoutColorDark</item>
-        <item name="fontFamily">@font/kumbh_sans</item>
+        <item name="fontFamily">@font/gilroy</item>
         <item name="bottom_sheet_background">#2A2A2A</item>
         <item name="search_color">@color/backgroundLayoutColorDark</item>
+        <item name="blur_background_color">#1000</item>
+        <item name="blur_icon_tint_color">#000000</item>
 
     </style>
 

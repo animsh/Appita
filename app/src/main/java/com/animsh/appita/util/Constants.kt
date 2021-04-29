@@ -19,6 +19,7 @@ class Constants {
         const val QUERY_INSTRUCTION_REQUIRED = "instructionsRequired"
         const val QUERY_ADD_RECIPE_INFORMATION = "addRecipeInformation"
         const val QUERY_FILL_INGREDIENTS = "fillIngredients"
+        const val QUERY_ADD_NUTRITION = "addRecipeNutrition"
 
         // Room Database
         const val RECIPE_TABLE = "recipes_table"

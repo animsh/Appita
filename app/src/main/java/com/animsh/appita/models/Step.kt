@@ -9,11 +9,11 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class Step(
     @SerializedName("equipment")
-    val equipment: @RawValue List<Equipment>,
+    val equipment: @RawValue List<Equipment?>?,
     @SerializedName("ingredients")
-    val ingredients: @RawValue List<Any>,
+    val ingredients: @RawValue List<Any>?,
     @SerializedName("number")
-    val number: Int,
+    val number: Int?,
     @SerializedName("step")
-    val step: String
+    val step: String?
 ) : Parcelable

@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Measures(
     @SerializedName("metric")
-    val metric: Metric,
+    val metric: Metric?,
     @SerializedName("us")
-    val us: Us
+    val us: Us?
 ) : Parcelable

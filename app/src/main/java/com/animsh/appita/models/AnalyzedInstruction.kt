@@ -9,7 +9,7 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class AnalyzedInstruction(
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("steps")
-    val steps: @RawValue List<Step>
+    val steps: @RawValue List<Step?>?
 ) : Parcelable

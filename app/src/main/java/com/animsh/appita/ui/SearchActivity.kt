@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.animsh.appita.bindingadapters.RecipesAdapter
+import com.animsh.appita.adapters.RecipesAdapter
 import com.animsh.appita.databinding.ActivitySearchBinding
 import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.viewmodels.MainViewModel
@@ -20,7 +20,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
-    private val mAdapter by lazy { RecipesAdapter() }
+    private val mAdapter by lazy { RecipesAdapter(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

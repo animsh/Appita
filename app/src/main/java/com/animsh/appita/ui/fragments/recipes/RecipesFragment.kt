@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.animsh.appita.R
-import com.animsh.appita.bindingadapters.RecipesAdapter
+import com.animsh.appita.adapters.RecipesAdapter
 import com.animsh.appita.databinding.FragmentRecipesBinding
 import com.animsh.appita.ui.fragments.recipes.bottomsheet.RecipeBottomSheetFragment
 import com.animsh.appita.util.NetworkListener
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     private lateinit var binding: FragmentRecipesBinding
-    private val mAdapter by lazy { RecipesAdapter() }
+    private val mAdapter by lazy { RecipesAdapter(requireActivity()) }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
     private val sharedViewModel: SharedViewModel by viewModels()

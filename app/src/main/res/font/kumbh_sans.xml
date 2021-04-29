@@ -3,7 +3,7 @@
     <font
         app:font="@font/kumbhsans_regular"
         app:fontStyle="normal"
-        app:fontWeight="400" />
+        app:fontWeight="500" />
     <font
         app:font="@font/kumbhsans_bold"
         app:fontStyle="normal"

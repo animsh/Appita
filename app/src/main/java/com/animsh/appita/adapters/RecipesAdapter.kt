@@ -1,5 +1,7 @@
-package com.animsh.appita.bindingadapters
+package com.animsh.appita.adapters
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.animsh.appita.databinding.LayoutRecipeContainerBinding
 import com.animsh.appita.models.FoodRecipe
 import com.animsh.appita.models.Result
+import com.animsh.appita.ui.DetailsActivity
 import com.animsh.appita.util.RecipesDiffUtil
 
 /**
  * Created by animsh on 2/27/2021.
  */
-class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
+class RecipesAdapter(
+    private var activity: Activity
+) : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
 
     private var recipes = emptyList<Result>()
 
@@ -42,6 +47,11 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder>() {
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val currentRecipe = recipes[position]
         holder.bind(currentRecipe)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(activity, DetailsActivity::class.java)
+            intent.putExtra("result", currentRecipe)
+            activity.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

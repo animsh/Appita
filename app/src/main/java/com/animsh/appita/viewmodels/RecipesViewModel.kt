@@ -11,6 +11,7 @@ import com.animsh.appita.util.Constants.Companion.API_KEY
 import com.animsh.appita.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.animsh.appita.util.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.animsh.appita.util.Constants.Companion.DEFAULT_RECIPES_NUMBER
+import com.animsh.appita.util.Constants.Companion.QUERY_ADD_NUTRITION
 import com.animsh.appita.util.Constants.Companion.QUERY_ADD_RECIPE_INFORMATION
 import com.animsh.appita.util.Constants.Companion.QUERY_API_KEY
 import com.animsh.appita.util.Constants.Companion.QUERY_DIET
@@ -75,6 +76,7 @@ class RecipesViewModel @Inject constructor(
         queries[QUERY_SORT_DIRECTION] = "asc"
         queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
+        queries[QUERY_ADD_NUTRITION] = "true"
 
         return queries
     }
@@ -92,6 +94,7 @@ class RecipesViewModel @Inject constructor(
         queries[QUERY_SORT_DIRECTION] = "asc"
         queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
+        queries[QUERY_ADD_NUTRITION] = "true"
 
         return queries
     }
