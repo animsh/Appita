@@ -1,4 +1,4 @@
-package com.animsh.appita.data.database
+package com.animsh.appita.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

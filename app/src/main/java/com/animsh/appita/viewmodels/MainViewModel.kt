@@ -6,7 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
 import com.animsh.appita.data.Repository
-import com.animsh.appita.data.database.RecipeEntity
+import com.animsh.appita.data.database.entity.FavoriteEntity
+import com.animsh.appita.data.database.entity.RecipeEntity
 import com.animsh.appita.models.FoodRecipe
 import com.animsh.appita.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,10 +27,27 @@ class MainViewModel @Inject constructor(
 
     /** Room */
     var readRecipe: LiveData<List<RecipeEntity>> = repository.local.readDatabase().asLiveData()
+    var readFavRecipe: LiveData<List<FavoriteEntity>> =
+        repository.local.readFavRecipe().asLiveData()
 
     private fun insertRecipe(recipeEntity: RecipeEntity) = viewModelScope.launch(Dispatchers.IO) {
         repository.local.insertRecipe(recipeEntity)
     }
+
+    fun insertFavRecipe(favoriteEntity: FavoriteEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavRecipe(favoriteEntity)
+        }
+
+    fun deleteFavRecipe(favoriteEntity: FavoriteEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavRecipe(favoriteEntity)
+        }
+
+    fun deleteAllFavRecipe() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavRecipes()
+        }
 
     /** RETROFIT */
     var foodRecipeResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()

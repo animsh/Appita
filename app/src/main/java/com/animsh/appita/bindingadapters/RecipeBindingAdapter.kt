@@ -3,7 +3,7 @@ package com.animsh.appita.bindingadapters
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.animsh.appita.data.database.RecipeEntity
+import com.animsh.appita.data.database.entity.RecipeEntity
 import com.animsh.appita.models.FoodRecipe
 import com.animsh.appita.util.NetworkResult
 

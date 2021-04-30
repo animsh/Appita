@@ -24,7 +24,7 @@
         <item name="bottom_sheet_background">@color/lightGray</item>
         <item name="search_color">#EFEFEF</item>
         <item name="blur_background_color">#1FFF</item>
-        <item name="blur_icon_tint_color">#FFFFFF</item>
+        <item name="blur_icon_tint_color">@color/blurIconTintColorLight</item>
     </style>
 
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">

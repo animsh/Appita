@@ -23,7 +23,7 @@
         <item name="bottom_sheet_background">#2A2A2A</item>
         <item name="search_color">@color/backgroundLayoutColorDark</item>
         <item name="blur_background_color">#1000</item>
-        <item name="blur_icon_tint_color">#000000</item>
+        <item name="blur_icon_tint_color">@color/blurIconTintColorDark</item>
 
     </style>
 
