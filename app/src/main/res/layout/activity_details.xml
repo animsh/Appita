@@ -87,6 +87,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
+                        android:openInBrowser="@{Result.spoonacularSourceUrl}"
                         app:realtimeBlurRadius="20dp"
                         app:realtimeOverlayColor="?attr/blur_background_color" />
 
@@ -119,6 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
+                        android:shareRecipe="@{Result.spoonacularSourceUrl}"
                         app:realtimeBlurRadius="20dp"
                         app:realtimeOverlayColor="?attr/blur_background_color" />
 

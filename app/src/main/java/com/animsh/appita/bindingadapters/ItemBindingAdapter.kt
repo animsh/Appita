@@ -1,7 +1,10 @@
 package com.animsh.appita.bindingadapters
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.text.Html
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -20,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.github.mmin18.widget.RealtimeBlurView
 import java.util.*
 
 
@@ -31,7 +35,7 @@ class ItemBindingAdapter {
 
         @BindingAdapter("android:loadImageFromURL")
         @JvmStatic
-        fun loadImageFromURL(imageView: ImageView, imageUrl: Int) {
+        fun loadImageFromURL(imageView: ImageView, imageUrl: Int?) {
             Glide.with(imageView.context)
                 .load("https://spoonacular.com/recipeImages/$imageUrl-636x393.jpg")
                 .placeholder(R.drawable.placeholder)
@@ -41,7 +45,7 @@ class ItemBindingAdapter {
 
         @BindingAdapter("android:loadIngredientImage")
         @JvmStatic
-        fun loadIngredientImage(imageView: ImageView, imageUrl: String) {
+        fun loadIngredientImage(imageView: ImageView, imageUrl: String?) {
             Glide.with(imageView.context)
                 .load("https://spoonacular.com/cdn/ingredients_100x100/$imageUrl")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -50,7 +54,7 @@ class ItemBindingAdapter {
 
         @BindingAdapter("android:loadIngredientImageBackground")
         @JvmStatic
-        fun loadBackGround(imageView: ImageView, imageUrl: String) {
+        fun loadBackGround(imageView: ImageView, imageUrl: String?) {
             Glide.with(imageView).asBitmap()
                 .load("https://spoonacular.com/cdn/ingredients_100x100/$imageUrl")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -164,6 +168,36 @@ class ItemBindingAdapter {
                 nutrition.nutrients?.get(0)?.amount.toString() + " " + nutrition.nutrients?.get(0)?.unit
 
             textView.text = txt
+        }
+
+        @BindingAdapter("android:shareRecipe")
+        @JvmStatic
+        fun share(realtimeBlurView: RealtimeBlurView, sourceUrl: String?) {
+            realtimeBlurView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_TEXT, sourceUrl)
+                realtimeBlurView.context.startActivity(
+                    Intent.createChooser(
+                        intent,
+                        "Share Recipe with"
+                    )
+                )
+            }
+        }
+
+        @SuppressLint("QueryPermissionsNeeded")
+        @BindingAdapter("android:openInBrowser")
+        @JvmStatic
+        fun openInBrowser(realtimeBlurView: RealtimeBlurView, sourceUrl: String?) {
+            realtimeBlurView.setOnClickListener {
+                val context = realtimeBlurView.context
+                val recipeUrl: Uri = Uri.parse(sourceUrl)
+                val intent = Intent(Intent.ACTION_VIEW, recipeUrl)
+                if (intent.resolveActivity(context.packageManager) != null) {
+                    context.startActivity(intent)
+                }
+            }
         }
     }
 
