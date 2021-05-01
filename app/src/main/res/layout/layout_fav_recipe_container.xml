@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="Result"
+            type="com.animsh.appita.data.database.entity.FavoriteEntity" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_recipe_container"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:loadImageFromURL="@{Result.result.id}"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="10dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/recipesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:letterSpacing="0.05"
+                android:lineSpacingMultiplier="1.1"
+                android:scrollHorizontally="true"
+                android:text="@{Result.result.title}"
+                android:textAlignment="center"
+                android:textColor="?attr/text_color"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="8dp"
+                android:isIndicator="true"
+                android:loadStars="@{Result.result.spoonacularScore}"
+                android:numStars="5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/recipeLikes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:letterSpacing="0.05"
+                    android:lineSpacingMultiplier="1.1"
+                    android:setLikes="@{Result.result.aggregateLikes}"
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    app:drawableTint="@color/red"
+                    app:drawableTopCompat="@drawable/ic_round_favorite" />
+
+                <TextView
+                    android:id="@+id/recipeTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingMultiplier="1.6"
+                    android:setMinutes="@{Result.result.readyInMinutes}"
+                    android:textAlignment="center"
+                    android:textColor="@color/yellow"
+                    app:drawableTint="@color/yellow"
+                    app:drawableTopCompat="@drawable/ic_time_filled" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

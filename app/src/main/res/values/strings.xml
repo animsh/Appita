@@ -35,4 +35,5 @@
     <string name="diet_type">Diet Type</string>
     <string name="apply">Apply</string>
     <string name="search">Search</string>
+    <string name="add_recipes_to_favorite_to_see_them_here">Add recipes to favorite to see them here!</string>
 </resources>
