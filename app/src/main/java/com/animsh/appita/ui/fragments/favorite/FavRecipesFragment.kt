@@ -1,7 +1,6 @@
 package com.animsh.appita.ui.fragments.favorite
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.animsh.appita.adapters.FavRecipeAdapter
 import com.animsh.appita.databinding.FragmentFavRecipesBinding
 import com.animsh.appita.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class FavRecipesFragment : Fragment() {
 
-    private val fAdapter: FavRecipeAdapter by lazy { FavRecipeAdapter(requireActivity()) }
     private val mainViewModel: MainViewModel by viewModels()
+    private val fAdapter: FavRecipeAdapter by lazy {
+        FavRecipeAdapter(
+            requireActivity(),
+            mainViewModel
+        )
+    }
 
     private var _binding: FragmentFavRecipesBinding? = null
     private val binding get() = _binding!!
@@ -38,9 +44,18 @@ class FavRecipesFragment : Fragment() {
 
 
             mainViewModel.readFavRecipe.observe(viewLifecycleOwner, { favEntity ->
-                Log.d("TAGTAGTAG", "onViewCreated: " + favEntity.size)
                 fAdapter.setData(favEntity)
             })
+
+            activity?.deleteBtn?.setOnClickListener {
+                mainViewModel.deleteAllFavRecipe()
+                Snackbar.make(
+                    appBar,
+                    "All Recipes Deleted!",
+                    Snackbar.LENGTH_SHORT
+                ).setAction("Okay") {}
+                    .show()
+            }
         }
 
         return binding.root
@@ -49,5 +64,17 @@ class FavRecipesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        if (hidden) {
+            fAdapter.removeContextualActionMode()
+            activity?.deleteBtn?.visibility = View.GONE
+            activity?.searchBtn?.visibility = View.VISIBLE
+        } else {
+            activity?.deleteBtn?.visibility = View.VISIBLE
+            activity?.searchBtn?.visibility = View.GONE
+        }
+        super.onHiddenChanged(hidden)
     }
 }

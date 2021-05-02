@@ -5,12 +5,13 @@
         <item name="colorPrimary">@color/themePrimary</item>
         <item name="colorPrimaryVariant">@color/backgroundLayoutColorDark</item>
         <item name="colorOnPrimary">@color/black</item>
+        <item name="actionModeBackground">@color/backgroundColorDark</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/themePrimary</item>
         <item name="colorSecondaryVariant">@color/themePrimary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/backgroundColorDark</item>
         <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="elevationOverlayEnabled">false</item>
@@ -24,7 +25,15 @@
         <item name="search_color">@color/backgroundLayoutColorDark</item>
         <item name="blur_background_color">#1000</item>
         <item name="blur_icon_tint_color">@color/blurIconTintColorDark</item>
+        <item name="snackbarStyle">@style/SnackBarMessageStyle</item>
 
+    </style>
+
+    <style name="SnackBarMessageStyle">
+        <item name="android:layout_marginTop">@dimen/mtrl_snackbar_margin</item>
+        <item name="android:layout_marginLeft">@dimen/mtrl_snackbar_margin</item>
+        <item name="android:layout_marginRight">@dimen/mtrl_snackbar_margin</item>
+        <item name="android:layout_marginBottom">50dp</item>
     </style>
 
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
