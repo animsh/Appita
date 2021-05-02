@@ -1,10 +1,8 @@
 package com.animsh.appita.ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -18,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -31,36 +28,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+        super.onCreate(null)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.apply {
-            window.apply {
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                statusBarColor = Color.TRANSPARENT
-            }
             val tf = Typeface.createFromAsset(assets, "fonts/billabong.ttf")
             appName.typeface = tf
             appName.textSize = 34f
-            backStack.add(recipesFragment)
-            bottomNavigationView.apply {
-                setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-            }
-            if (fragmentManager.findFragmentByTag("1") == null || fragmentManager.findFragmentByTag(
-                    "0"
-                ) == null || fragmentManager.findFragmentByTag("1") == null
-            ) {
-                fragmentManager.beginTransaction().add(R.id.main_container, foodJokeFragment, "2")
-                    .hide(foodJokeFragment).commit()
-                fragmentManager.beginTransaction().add(R.id.main_container, favRecipesFragment, "1")
-                    .hide(favRecipesFragment).commit()
-                fragmentManager.beginTransaction().add(R.id.main_container, recipesFragment, "0")
-                    .commit()
-            }
-
+            setupBottomNav()
             searchBtn.setOnClickListener {
                 val intent = Intent(this@MainActivity, SearchActivity::class.java)
                 startActivity(intent)
@@ -106,6 +81,35 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNavigationView.menu.getItem(active.tag!!.toInt()).isChecked = true
         } else {
             super.onBackPressed()
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        bottomNavigationView.apply {
+            setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        }
+        binding.bottomNavigationView.menu.getItem(0).isChecked = true
+    }
+
+    private fun setupBottomNav() {
+        backStack.add(recipesFragment)
+        bottomNavigationView.apply {
+            setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        }
+        if (fragmentManager.findFragmentByTag("1") == null || fragmentManager.findFragmentByTag(
+                "0"
+            ) == null || fragmentManager.findFragmentByTag("2") == null
+        ) {
+            fragmentManager.beginTransaction()
+                .add(R.id.main_container, foodJokeFragment, "2")
+                .hide(foodJokeFragment).commit()
+            fragmentManager.beginTransaction()
+                .add(R.id.main_container, favRecipesFragment, "1")
+                .hide(favRecipesFragment).commit()
+            fragmentManager.beginTransaction()
+                .add(R.id.main_container, recipesFragment, "0")
+                .commit()
         }
     }
 }

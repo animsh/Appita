@@ -19,6 +19,7 @@ import com.animsh.appita.util.observeOnce
 import com.animsh.appita.viewmodels.MainViewModel
 import com.animsh.appita.viewmodels.RecipesViewModel
 import com.animsh.appita.viewmodels.SharedViewModel
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
