@@ -25,10 +25,11 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="10dp"
+            android:paddingBottom="100dp"
             android:setData="@{adapter}"
             android:viewVisibility="@{viewModel.readFavRecipe}" />
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="100dp"

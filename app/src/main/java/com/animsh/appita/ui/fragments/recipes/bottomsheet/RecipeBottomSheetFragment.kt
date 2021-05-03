@@ -6,14 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.animsh.appita.databinding.RecipeBottomSheetBinding
 import com.animsh.appita.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.animsh.appita.util.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.animsh.appita.viewmodels.RecipesViewModel
-import com.animsh.appita.viewmodels.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -25,8 +23,6 @@ class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
         const val TAG = "RecipeBottomDialog"
     }
 
-    private val sharedPrefFile = "appitaPreference"
-
     private var _binding: RecipeBottomSheetBinding? = null
     private val binding get() = _binding!!
 
@@ -36,7 +32,6 @@ class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
     private var mealTypeChipId = 0
     private var dietTypeChip = DEFAULT_DIET_TYPE
     private var dietTypeChipId = 0
-    private val sharedViewModel: SharedViewModel by viewModels({ requireParentFragment() })
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +89,7 @@ class RecipeBottomSheetFragment : BottomSheetDialogFragment() {
                 editor.putString("meal", mealTypeChip)
                 editor.putString("diet", dietTypeChip)
                 editor.apply()
-                sharedViewModel.setBackFrom(true)
+                recipesViewModel.setBackFrom(true)
                 dismiss()
             }
         }

@@ -8,19 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.animsh.appita.adapters.FavRecipeAdapter
+import com.animsh.appita.databinding.ActivityMainBinding
 import com.animsh.appita.databinding.FragmentFavRecipesBinding
 import com.animsh.appita.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
-class FavRecipesFragment : Fragment() {
+class FavRecipesFragment(
+    private val activityMainBinding: ActivityMainBinding
+) : Fragment() {
 
     private val mainViewModel: MainViewModel by viewModels()
     private val fAdapter: FavRecipeAdapter by lazy {
         FavRecipeAdapter(
             requireActivity(),
+            activityMainBinding,
             mainViewModel
         )
     }
@@ -32,7 +35,7 @@ class FavRecipesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavRecipesBinding.inflate(inflater, container, false)
         binding.apply {
             lifecycleOwner = this@FavRecipesFragment
@@ -47,10 +50,10 @@ class FavRecipesFragment : Fragment() {
                 fAdapter.setData(favEntity)
             })
 
-            activity?.deleteBtn?.setOnClickListener {
+            activityMainBinding.deleteBtn.setOnClickListener {
                 mainViewModel.deleteAllFavRecipe()
                 Snackbar.make(
-                    appBar,
+                    activityMainBinding.appBar,
                     "All Recipes Deleted!",
                     Snackbar.LENGTH_SHORT
                 ).setAction("Okay") {}
@@ -61,19 +64,19 @@ class FavRecipesFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         if (hidden) {
             fAdapter.removeContextualActionMode()
-            activity?.deleteBtn?.visibility = View.GONE
-            activity?.searchBtn?.visibility = View.VISIBLE
+            activityMainBinding.deleteBtn.visibility = View.GONE
+            activityMainBinding.searchBtn.visibility = View.VISIBLE
         } else {
-            activity?.deleteBtn?.visibility = View.VISIBLE
-            activity?.searchBtn?.visibility = View.GONE
+            activityMainBinding.deleteBtn.visibility = View.VISIBLE
+            activityMainBinding.searchBtn.visibility = View.GONE
         }
         super.onHiddenChanged(hidden)
     }

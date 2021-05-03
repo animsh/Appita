@@ -3,9 +3,7 @@ package com.animsh.appita.viewmodels
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.animsh.appita.data.DataStoreRepository
 import com.animsh.appita.util.Constants.Companion.API_KEY
 import com.animsh.appita.util.Constants.Companion.DEFAULT_DIET_TYPE
@@ -42,6 +40,20 @@ class RecipesViewModel @Inject constructor(
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
     val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
+
+    private val mutableSelectedItem = MutableLiveData<Boolean>()
+    val backFrom: LiveData<Boolean> get() = mutableSelectedItem
+
+    fun setBackFrom(item: Boolean) {
+        mutableSelectedItem.value = item
+    }
+
+    private val mutableOnlineItem = MutableLiveData<Boolean>()
+    val onlineStatus: LiveData<Boolean> get() = mutableOnlineItem
+
+    fun setOnlineStatus(item: Boolean) {
+        mutableOnlineItem.value = item
+    }
 
     fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) =
         viewModelScope.launch(Dispatchers.IO) {

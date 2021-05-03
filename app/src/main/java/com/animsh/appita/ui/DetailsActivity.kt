@@ -20,8 +20,7 @@ import com.animsh.appita.models.Step
 import com.animsh.appita.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.parcel.RawValue
-import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.parcelize.RawValue
 
 
 @AndroidEntryPoint

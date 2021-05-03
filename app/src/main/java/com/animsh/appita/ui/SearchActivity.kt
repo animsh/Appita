@@ -12,7 +12,6 @@ import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.viewmodels.MainViewModel
 import com.animsh.appita.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_search.*
 
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity() {
@@ -29,22 +28,23 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(this).get(RecipesViewModel::class.java)
+        binding.apply {
+            recipeRecyclerview.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        recipeRecyclerview.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            recipeRecyclerview.adapter = mAdapter
 
-        recipeRecyclerview.adapter = mAdapter
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String): Boolean {
+                    return true
+                }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String): Boolean {
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                searchApiData(query)
-                return true
-            }
-        })
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    searchApiData(query)
+                    return true
+                }
+            })
+        }
     }
 
     private fun searchApiData(searchQuery: String) {

@@ -39,7 +39,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:drawableTopCompat="@drawable/ic_dead" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

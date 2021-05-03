@@ -9,23 +9,25 @@ import androidx.fragment.app.FragmentManager
 import com.animsh.appita.R
 import com.animsh.appita.databinding.ActivityMainBinding
 import com.animsh.appita.ui.fragments.favorite.FavRecipesFragment
-import com.animsh.appita.ui.fragments.foodjoke.FoodJokeFragment
 import com.animsh.appita.ui.fragments.recipes.RecipesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private val recipesFragment: Fragment = RecipesFragment()
-    private val favRecipesFragment: Fragment = FavRecipesFragment()
-    private val foodJokeFragment: Fragment = FoodJokeFragment()
+    private val favRecipesFragment: Fragment by lazy {
+        FavRecipesFragment(binding)
+    }
+
+    //    private val foodJokeFragment: Fragment = FoodJokeFragment()
     private val fragmentManager: FragmentManager = supportFragmentManager
     private var active = recipesFragment
     private var backStack: MutableList<Fragment> = Stack()
-    private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
@@ -61,13 +63,13 @@ class MainActivity : AppCompatActivity() {
                         backStack.add(active)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.foodJokeFragment -> {
-                    fragmentManager.beginTransaction().hide(active).show(foodJokeFragment).commit()
-                    active = foodJokeFragment
-                    if (backStack[backStack.lastIndex] != active)
-                        backStack.add(active)
-                    return@OnNavigationItemSelectedListener true
-                }
+                /* R.id.foodJokeFragment -> {
+                     fragmentManager.beginTransaction().hide(active).show(foodJokeFragment).commit()
+                     active = foodJokeFragment
+                     if (backStack[backStack.lastIndex] != active)
+                         backStack.add(active)
+                     return@OnNavigationItemSelectedListener true
+                 }*/
             }
             false
         }
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        bottomNavigationView.apply {
+        binding.bottomNavigationView.apply {
             setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         }
         binding.bottomNavigationView.menu.getItem(0).isChecked = true
@@ -94,16 +96,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         backStack.add(recipesFragment)
-        bottomNavigationView.apply {
+        binding.bottomNavigationView.apply {
             setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         }
         if (fragmentManager.findFragmentByTag("1") == null || fragmentManager.findFragmentByTag(
                 "0"
-            ) == null || fragmentManager.findFragmentByTag("2") == null
+            ) == null
         ) {
-            fragmentManager.beginTransaction()
-                .add(R.id.main_container, foodJokeFragment, "2")
-                .hide(foodJokeFragment).commit()
+            /* fragmentManager.beginTransaction()
+                 .add(R.id.main_container, foodJokeFragment, "2")
+                 .hide(foodJokeFragment).commit()*/
             fragmentManager.beginTransaction()
                 .add(R.id.main_container, favRecipesFragment, "1")
                 .hide(favRecipesFragment).commit()

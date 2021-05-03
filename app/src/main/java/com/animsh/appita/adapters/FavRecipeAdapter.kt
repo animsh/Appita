@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.animsh.appita.R
 import com.animsh.appita.data.database.entity.FavoriteEntity
+import com.animsh.appita.databinding.ActivityMainBinding
 import com.animsh.appita.databinding.LayoutFavRecipeContainerBinding
 import com.animsh.appita.ui.DetailsActivity
 import com.animsh.appita.util.RecipesDiffUtil
 import com.animsh.appita.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_fav_recipe_container.view.*
 
 
 /**
@@ -24,6 +23,7 @@ import kotlinx.android.synthetic.main.layout_fav_recipe_container.view.*
  */
 class FavRecipeAdapter(
     private var activity: Activity,
+    private val activityMainBinding: ActivityMainBinding,
     private var mainViewModel: MainViewModel
 ) : RecyclerView.Adapter<FavRecipeAdapter.FavRecipeViewHolder>(), ActionMode.Callback {
 
@@ -35,7 +35,7 @@ class FavRecipeAdapter(
 
     private var favRecipeList = emptyList<FavoriteEntity>()
 
-    class FavRecipeViewHolder(private val binding: LayoutFavRecipeContainerBinding) :
+    class FavRecipeViewHolder(val binding: LayoutFavRecipeContainerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favoriteEntity: FavoriteEntity) {
@@ -60,6 +60,7 @@ class FavRecipeAdapter(
         rootView = holder.itemView.rootView
         myHolders.add(holder)
         val current = favRecipeList[position]
+        saveSelection(holder, current)
         holder.bind(current)
         holder.itemView.setOnClickListener {
             if (multiSelection) {
@@ -78,7 +79,8 @@ class FavRecipeAdapter(
                 applySelection(holder, current)
                 true
             } else {
-                false
+                applySelection(holder, current)
+                true
             }
 
         }
@@ -121,11 +123,19 @@ class FavRecipeAdapter(
         }
         multiSelection = false
         selectedRecipes.clear()
-        setupAppBar(dpToPx(60), dpToPx(28))
+        setupAppBar(dpToPx(60), dpToPx(0))
     }
 
     private fun dpToPx(dp: Int): Int {
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
+    private fun saveSelection(holder: FavRecipeViewHolder, currentRecipe: FavoriteEntity) {
+        if (selectedRecipes.contains(currentRecipe)) {
+            changeRecipeStyle(holder, R.color.lightThemePrimary, R.color.themePrimary)
+        } else {
+            setColorAsPerMode(holder)
+        }
     }
 
     private fun applySelection(holder: FavRecipeViewHolder, currentRecipe: FavoriteEntity) {
@@ -141,8 +151,8 @@ class FavRecipeAdapter(
     }
 
     private fun setupAppBar(height: Int, marginTop: Int) {
-        activity.appBar.layoutParams.height = height
-        val margin = activity.appBar.layoutParams as ViewGroup.MarginLayoutParams
+        activityMainBinding.appBar.layoutParams.height = height
+        val margin = activityMainBinding.appBar.layoutParams as ViewGroup.MarginLayoutParams
         margin.topMargin = marginTop
     }
 
@@ -159,15 +169,15 @@ class FavRecipeAdapter(
         backGroundColor: Int,
         strokeColor: Int
     ) {
-        holder.itemView.layoutContainerChild.setBackgroundColor(
+        holder.binding.layoutContainerChild.setBackgroundColor(
             ContextCompat.getColor(
                 activity,
                 backGroundColor
             )
         )
 
-        holder.itemView.layoutContainer.strokeWidth = 1
-        holder.itemView.layoutContainer.strokeColor = ContextCompat.getColor(
+        holder.binding.layoutContainer.strokeWidth = 1
+        holder.binding.layoutContainer.strokeColor = ContextCompat.getColor(
             activity,
             strokeColor
         )

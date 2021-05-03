@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -18,8 +17,6 @@ import com.animsh.appita.util.NetworkResult
 import com.animsh.appita.util.observeOnce
 import com.animsh.appita.viewmodels.MainViewModel
 import com.animsh.appita.viewmodels.RecipesViewModel
-import com.animsh.appita.viewmodels.SharedViewModel
-import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -31,9 +28,9 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private val mAdapter by lazy { RecipesAdapter(requireActivity()) }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
-    private val sharedViewModel: SharedViewModel by viewModels()
     private var firstTime: Boolean = true
     private lateinit var networkListener: NetworkListener
+    private var notFromBottomSheet: Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,27 +62,23 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
             recipesViewModel.readBackOnline.observe(viewLifecycleOwner, {
                 recipesViewModel.backOnline = it
+                readDatabase(notFromBottomSheet)
             })
 
-            lifecycleScope.launch {
+            lifecycleScope.launchWhenStarted {
                 networkListener = NetworkListener()
                 networkListener.checkNetworkAvailability(requireContext())
                     .collect { status ->
                         Log.d("TAGTAGTAG", "onViewCreated: $status")
                         recipesViewModel.networkStatus = status
                         recipesViewModel.showNetworkStatus()
-                        sharedViewModel.setOnlineStatus(status)
+                        recipesViewModel.setOnlineStatus(status)
                     }
             }
 
-            if (firstTime) {
-                readDatabase(true)
-                firstTime = false
-            }
-
-            sharedViewModel.onlineStatus.observeOnce(viewLifecycleOwner, {
-                sharedViewModel.backFrom.observe(viewLifecycleOwner, {
-                    readDatabase(it)
+            recipesViewModel.onlineStatus.observe(viewLifecycleOwner, {
+                recipesViewModel.backFrom.observe(viewLifecycleOwner, { result ->
+                    notFromBottomSheet = result
                 })
             })
         }

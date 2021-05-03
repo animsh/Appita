@@ -10,6 +10,7 @@ import com.animsh.appita.data.database.entity.FavoriteEntity
 import com.animsh.appita.data.database.entity.RecipeEntity
 import com.animsh.appita.models.FoodRecipe
 import com.animsh.appita.util.NetworkResult
+import com.makeramen.roundedimageview.RoundedImageView
 
 /**
  * Created by animsh on 3/10/2021.
@@ -45,7 +46,7 @@ class RecipeBindingAdapter {
         ) {
             if (favoritesEntity.isNullOrEmpty()) {
                 when (view) {
-                    is ImageView -> {
+                    is RoundedImageView -> {
                         view.visibility = View.VISIBLE
                     }
                     is TextView -> {

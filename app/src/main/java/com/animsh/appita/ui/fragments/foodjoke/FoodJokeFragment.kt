@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.animsh.appita.R
-import com.google.android.material.transition.MaterialFadeThrough
 
 class FoodJokeFragment : Fragment() {
 

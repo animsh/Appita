@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.animsh.appita.databinding.LayoutIngredientsBinding
 import com.animsh.appita.models.ExtendedIngredient
 import com.animsh.appita.util.RecipesDiffUtil
-import kotlinx.android.parcel.RawValue
-import kotlinx.android.synthetic.main.layout_ingredients.view.*
+import kotlinx.parcelize.RawValue
 
 /**
  * Created by animsh on 2/27/2021.
@@ -17,7 +16,7 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
 
     private var ingredients = emptyList<ExtendedIngredient>()
 
-    class IngredientsViewHolder(private val binding: LayoutIngredientsBinding) :
+    class IngredientsViewHolder(val binding: LayoutIngredientsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(result: ExtendedIngredient) {
             binding.ingredient = result
@@ -43,7 +42,7 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.IngredientsVi
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         val current = ingredients[position]
         holder.bind(current)
-        holder.itemView.name.isSelected = true
+        holder.binding.name.isSelected = true
     }
 
     override fun getItemCount(): Int {
