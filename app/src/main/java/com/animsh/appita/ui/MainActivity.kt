@@ -1,7 +1,6 @@
 package com.animsh.appita.ui
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -34,9 +33,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {
-            val tf = Typeface.createFromAsset(assets, "fonts/billabong.ttf")
-            appName.typeface = tf
-            appName.textSize = 34f
             setupBottomNav()
             searchBtn.setOnClickListener {
                 val intent = Intent(this@MainActivity, SearchActivity::class.java)

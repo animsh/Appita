@@ -75,7 +75,7 @@ class FavRecipeAdapter(
             if (!multiSelection) {
                 multiSelection = true
                 activity.startActionMode(this)
-                setupAppBar(0, 0)
+                activityMainBinding.appBar.layoutParams.height = 0
                 applySelection(holder, current)
                 true
             } else {
@@ -123,7 +123,7 @@ class FavRecipeAdapter(
         }
         multiSelection = false
         selectedRecipes.clear()
-        setupAppBar(dpToPx(60), dpToPx(0))
+        activityMainBinding.appBar.layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
     }
 
     private fun dpToPx(dp: Int): Int {
@@ -150,11 +150,11 @@ class FavRecipeAdapter(
         }
     }
 
-    private fun setupAppBar(height: Int, marginTop: Int) {
-        activityMainBinding.appBar.layoutParams.height = height
-        val margin = activityMainBinding.appBar.layoutParams as ViewGroup.MarginLayoutParams
-        margin.topMargin = marginTop
-    }
+    /* private fun setupAppBar(height: Int, marginTop: Int) {
+         activityMainBinding.appBar.layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+         val margin = activityMainBinding.appBar.layoutParams as ViewGroup.MarginLayoutParams
+         margin.topMargin = marginTop
+     }*/
 
     private fun applyActionModeTitle() {
         when (selectedRecipes.size) {

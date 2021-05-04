@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.animsh.appita.R
 import com.animsh.appita.adapters.FavRecipeAdapter
 import com.animsh.appita.databinding.ActivityMainBinding
 import com.animsh.appita.databinding.FragmentFavRecipesBinding
 import com.animsh.appita.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +38,8 @@ class FavRecipesFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        enterTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough()
         _binding = FragmentFavRecipesBinding.inflate(inflater, container, false)
         binding.apply {
             lifecycleOwner = this@FavRecipesFragment
@@ -74,9 +78,11 @@ class FavRecipesFragment(
             fAdapter.removeContextualActionMode()
             activityMainBinding.deleteBtn.visibility = View.GONE
             activityMainBinding.searchBtn.visibility = View.VISIBLE
+            activityMainBinding.subText.text = getString(R.string.ready_to_cook_something_tasty)
         } else {
             activityMainBinding.deleteBtn.visibility = View.VISIBLE
-            activityMainBinding.searchBtn.visibility = View.GONE
+            activityMainBinding.searchBtn.visibility = View.INVISIBLE
+            activityMainBinding.subText.text = getString(R.string.your_favorite_recipes_are_here)
         }
         super.onHiddenChanged(hidden)
     }

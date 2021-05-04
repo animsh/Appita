@@ -7,7 +7,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/background_color"
@@ -15,6 +15,7 @@
         tools:context=".ui.SearchActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -33,14 +34,56 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:background="?attr/background_color"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.533"
+                app:searchHintIcon="@drawable/ic_search"
                 app:searchIcon="@drawable/ic_search" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/searchBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.github.mmin18.widget.RealtimeBlurView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:realtimeBlurRadius="20dp"
+                        app:realtimeOverlayColor="?attr/layout_color" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_search"
+                        app:tint="?attr/text_color" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -48,6 +91,7 @@
             android:id="@+id/recipeRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/header_title"
             android:clipToPadding="false"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -55,5 +99,24 @@
             app:shimmer_recycler_layout="@layout/layout_recipe_container_placeholder"
             app:spanCount="2" />
 
-    </LinearLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/search" />
+
+        <TextView
+            android:id="@+id/subText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/animationView"
+            android:layout_centerHorizontal="true"
+            android:text="@string/search_your_recipes_here"
+            android:textColor="?attr/sub_text_color"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 </layout>

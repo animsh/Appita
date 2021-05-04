@@ -55,6 +55,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // Viewpager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
     // Coordinator Layout
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 
@@ -125,5 +128,8 @@ dependencies {
     // Blur
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
+    // lottie
+    def lottieVersion = "3.7.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 }

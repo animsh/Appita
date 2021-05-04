@@ -26,7 +26,7 @@
         <item name="blur_background_color">#1000</item>
         <item name="blur_icon_tint_color">@color/blurIconTintColorDark</item>
         <item name="snackbarStyle">@style/SnackBarMessageStyle</item>
-
+        <item name="action_bar_color">#5F000000</item>
     </style>
 
     <style name="SnackBarMessageStyle">

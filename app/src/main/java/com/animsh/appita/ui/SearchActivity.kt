@@ -1,7 +1,10 @@
 package com.animsh.appita.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.R
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +37,12 @@ class SearchActivity : AppCompatActivity() {
 
             recipeRecyclerview.adapter = mAdapter
 
+            searchBtn.setOnClickListener {
+                searchView.visibility = View.VISIBLE
+                searchView.isIconified = false
+                searchBtn.visibility = View.INVISIBLE
+            }
+
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextChange(newText: String): Boolean {
                     return true
@@ -44,6 +53,18 @@ class SearchActivity : AppCompatActivity() {
                     return true
                 }
             })
+
+            val clearButton: ImageView = searchView.findViewById(R.id.search_close_btn)
+            clearButton.setOnClickListener { v ->
+                if (searchView.query.isEmpty()) {
+                    searchView.isIconified = true
+                    searchView.visibility = View.INVISIBLE
+                    searchBtn.visibility = View.VISIBLE
+                } else {
+                    // Do your task here
+                    searchView.setQuery("", false)
+                }
+            }
         }
     }
 
@@ -54,13 +75,19 @@ class SearchActivity : AppCompatActivity() {
             when (response) {
                 is NetworkResult.Success -> {
                     binding.recipeRecyclerview.hideShimmer()
+                    binding.animationView.visibility = View.INVISIBLE
+                    binding.subText.visibility = View.INVISIBLE
                     response.data.let { mAdapter.setData(it!!) }
                 }
                 is NetworkResult.Error -> {
                     binding.recipeRecyclerview.hideShimmer()
+                    binding.animationView.visibility = View.VISIBLE
+                    binding.subText.visibility = View.VISIBLE
                     Toast.makeText(this, response.message.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResult.Loading -> {
+                    binding.animationView.visibility = View.INVISIBLE
+                    binding.subText.visibility = View.INVISIBLE
                     binding.recipeRecyclerview.showShimmer()
                 }
             }

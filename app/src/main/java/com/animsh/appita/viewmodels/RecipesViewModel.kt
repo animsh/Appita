@@ -65,7 +65,7 @@ class RecipesViewModel @Inject constructor(
             dataStoreRepository.saveBackOnline(backOnline)
         }
 
-    fun applyQueries(context: Context): HashMap<String, String> {
+    fun applyQueries(context: Context, recipeNumber: String): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
         viewModelScope.launch {
@@ -79,10 +79,12 @@ class RecipesViewModel @Inject constructor(
             context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         mealType = sharedPreference.getString("meal", DEFAULT_MEAL_TYPE).toString()
         dietType = sharedPreference.getString("diet", DEFAULT_DIET_TYPE).toString()
-        queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+        queries[QUERY_NUMBER] = recipeNumber
         queries[QUERY_API_KEY] = API_KEY
-        queries[QUERY_TYPE] = mealType
-        queries[QUERY_DIET] = dietType
+        if (recipeNumber != "5") {
+            queries[QUERY_TYPE] = mealType
+            queries[QUERY_DIET] = dietType
+        }
         queries[QUERY_INSTRUCTION_REQUIRED] = "true"
         queries[QUERY_SORT] = "popularity"
         queries[QUERY_SORT_DIRECTION] = "asc"

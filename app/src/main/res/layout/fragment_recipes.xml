@@ -10,50 +10,104 @@
             type="com.animsh.appita.viewmodels.MainViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.fragments.recipes.RecipesFragment">
+        android:layout_height="match_parent">
 
-        <com.todkars.shimmer.ShimmerRecyclerView
-            android:id="@+id/recipeRecyclerview"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="100dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:shimmer_recycler_item_count="6"
-            app:shimmer_recycler_layout="@layout/layout_recipe_container_placeholder"
-            app:spanCount="2" />
+            tools:context=".ui.fragments.recipes.RecipesFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:alpha="0.5"
-            android:gravity="center"
-            android:readApiResponse="@{viewModel.foodRecipeResponse}"
-            android:readDatabase="@{viewModel.readRecipe}"
-            android:text="@string/no_internet"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:drawableTopCompat="@drawable/ic_dead" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/randomRecipes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="70dp"
-            android:clickable="true"
-            android:contentDescription="@string/recipe_filter"
-            android:focusable="true"
-            android:src="@drawable/ic_restaurant"
-            app:tint="?layout_color" />
+            <RelativeLayout
+                android:id="@+id/breaker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/randomRecipes"
+                android:padding="10dp">
 
-    </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/recipes"
+                    android:textColor="?attr/text_color"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/floatingActionButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@+id/searchBtn">
+
+                        <com.github.mmin18.widget.RealtimeBlurView
+                            android:id="@+id/settingBlurView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            app:realtimeBlurRadius="20dp"
+                            app:realtimeOverlayColor="?attr/layout_color" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_category"
+                            app:tint="?attr/text_color" />
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/recipeRecyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/breaker"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="100dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:shimmer_recycler_item_count="6"
+                app:shimmer_recycler_layout="@layout/layout_recipe_container_placeholder"
+                app:spanCount="2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:alpha="0.5"
+                android:readApiResponse="@{viewModel.foodRecipeResponse}"
+                android:readDatabase="@{viewModel.readRecipe}"
+                android:text="@string/no_internet"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:drawableTopCompat="@drawable/ic_dead" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 </layout>

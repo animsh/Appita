@@ -64,6 +64,10 @@ class DetailsActivity : AppCompatActivity() {
                     saveToFav(favIcon)
                 }
             }
+
+            backBtn.setOnClickListener {
+                finish()
+            }
             checkRecipeFavStatus()
         }
     }
