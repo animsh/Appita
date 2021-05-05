@@ -38,6 +38,11 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity, SearchActivity::class.java)
                 startActivity(intent)
             }
+
+            settingBtn.setOnClickListener {
+                val intent = Intent(this@MainActivity, SettingActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

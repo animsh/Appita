@@ -19,14 +19,14 @@
     <color name="backgroundColorLight">#FFFFFF</color>
     <color name="backgroundLayoutColorLight">#F8F8F8</color>
     <color name="textColorLight">#121212</color>
-    <color name="subTextColorLight">#757575</color>
+    <color name="subTextColorLight">#5F6267</color>
     <color name="blurIconTintColorLight">#FFFFFF</color>
 
     <!--darkMode colors-->
     <color name="backgroundColorDark">#000000</color>
     <color name="backgroundLayoutColorDark">#080808</color>
-    <color name="textColorDark">#FFFFFF</color>
-    <color name="subTextColorDark">#5FFFFFFF</color>
+    <color name="textColorDark">#F2F2F2</color>
+    <color name="subTextColorDark">#9BA0A6</color>
     <color name="blurIconTintColorDark">#000000</color>
 
     // Custom Chip Style

@@ -13,5 +13,6 @@
         <attr name="blur_icon_tint_color" format="color" />
         <attr name="bottom_navigation_color" format="color" />
         <attr name="bottom_sheet_background" format="color" />
+        <attr name="background_image_circle" format="color" />
     </declare-styleable>
 </resources>

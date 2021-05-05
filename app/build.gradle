@@ -10,13 +10,16 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    def versionMajor = 1
+    def versionMinor = 0
+    def versionPatch = 0
 
     defaultConfig {
         applicationId "com.animsh.appita"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 210000000 + versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
 

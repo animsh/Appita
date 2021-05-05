@@ -14,15 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Appita">
-        <activity android:name=".ui.DetailsActivity"></activity>
-        <activity android:name=".ui.SearchActivity" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.DetailsActivity" />
+        <activity android:name=".ui.SearchActivity" />
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>

@@ -27,6 +27,7 @@
         <item name="blur_icon_tint_color">@color/blurIconTintColorDark</item>
         <item name="snackbarStyle">@style/SnackBarMessageStyle</item>
         <item name="action_bar_color">#5F000000</item>
+        <item name="background_image_circle">#1fffffff</item>
     </style>
 
     <style name="SnackBarMessageStyle">
@@ -41,5 +42,22 @@
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="android:textColor">@color/chip_text_color</item>
         <item name="checkedIconTint">@color/chip_text_color</item>
+    </style>
+
+    <!-- Alert Dialog -->
+    <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog_Background" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- Background Color-->
+        <item name="android:background">@color/backgroundLayoutColorDark</item>
+        <!-- Text Color for title and message -->
+        <item name="colorOnSurface">@color/textColorDark</item>
+        <!-- Style for positive button -->
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button">
+        <!-- text color for the button -->
+        <item name="android:textColor">@color/themePrimary</item>
+        <!-- Background tint for the button -->
+        <item name="backgroundTint">@color/backgroundLayoutColorDark</item>
     </style>
 </resources>

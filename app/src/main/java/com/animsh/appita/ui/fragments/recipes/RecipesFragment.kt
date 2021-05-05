@@ -1,6 +1,8 @@
 package com.animsh.appita.ui.fragments.recipes
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.animsh.appita.R
 import com.animsh.appita.adapters.RandomRecipesAdapter
 import com.animsh.appita.adapters.RecipesAdapter
@@ -21,6 +24,7 @@ import com.animsh.appita.viewmodels.MainViewModel
 import com.animsh.appita.viewmodels.RecipesViewModel
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -34,6 +38,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private lateinit var recipesViewModel: RecipesViewModel
     private lateinit var networkListener: NetworkListener
     private var notFromBottomSheet: Boolean = true
+    private var sliderHandler: Handler = Handler(Looper.getMainLooper())
+    var isAtLimit = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -101,6 +107,28 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 page.scaleY = (0.85 + r * 0.15f).toFloat()
             }
             randomRecipes.setPageTransformer(compositePageTransformer)*/
+
+            randomRecipes.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    sliderHandler.removeCallbacks(sliderRunnable)
+                    sliderHandler.postDelayed(sliderRunnable, 2000)
+                }
+            })
+        }
+    }
+
+    private var sliderRunnable: Runnable = Runnable {
+        if (binding.randomRecipes.currentItem == 4) {
+            isAtLimit = true
+        } else if (binding.randomRecipes.currentItem == 0) {
+            isAtLimit = false
+        }
+
+        if (isAtLimit) {
+            binding.randomRecipes.currentItem = binding.randomRecipes.currentItem - 1
+        } else {
+            binding.randomRecipes.currentItem = binding.randomRecipes.currentItem + 1
         }
     }
 
