@@ -25,7 +25,7 @@ Go to the [Releases](https://github.com/animsh/Appita/releases) to download the 
 
 ## Tech stack & Open-source libraries
 
-- Minimum SDK level 21
+- Minimum SDK level 24
 - [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
 - Hilt (alpha) for dependency injection.
 - JetPack
